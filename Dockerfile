@@ -4,6 +4,7 @@ MAINTAINER Wenrui Ma <macomfan@163.com>
 
 # Install GCC, OpenSSL, Curl, ssh, net-tools, git
 RUN yum install -y centos-release-scl-rh centos-release-scl && \
+    yum install -y wget && \
     yum install -y devtoolset-3-gcc  devtoolset-3-gcc-c++ && \
 	  yum install -y openssl openssl-devel && \
 	  yum install -y libcurl libcurl-devel && \
@@ -11,8 +12,9 @@ RUN yum install -y centos-release-scl-rh centos-release-scl && \
     yum clean all -y
 
 # Install CMake v3.14.7
-COPY cmake-3.14.7-Linux-x86_64.sh /usr
+# COPY cmake-3.14.7-Linux-x86_64.sh /usr
 RUN cd /usr &&\
+    curl -O https://cmake.org/files/v3.14/cmake-3.14.7-Linux-x86_64.sh && \
     sh /usr/cmake-3.14.7-Linux-x86_64.sh --skip-license &&\
     rm -f /usr/cmake-3.14.7-Linux-x86_64.sh
 ENV PATH=$PATH:/bin/:/usr/bin/
