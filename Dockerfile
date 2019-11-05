@@ -4,7 +4,7 @@ MAINTAINER Wenrui Ma <macomfan@163.com>
 
 # Install GCC, OpenSSL, Curl, ssh, net-tools, git
 RUN yum install -y centos-release-scl-rh centos-release-scl && \
-    yum install -y wget && \
+    yum check-update -y && \
     yum install -y devtoolset-3-gcc  devtoolset-3-gcc-c++ && \
 	  yum install -y openssl openssl-devel && \
 	  yum install -y libcurl libcurl-devel && \
@@ -40,7 +40,13 @@ RUN source /opt/rh/devtoolset-3/enable && \
     make && make install && \
     cd .. && rm -rf build
 
+# Config SSH
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key &&\
+    ssh-keygen -t rsa -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t rsa -f /etc/ssh/ssh_host_ed25519_key && \
+    echo "huobi" | passwd --stdin root
 
 WORKDIR /root
 COPY run.sh /usr/local/bin/run.sh
+EXPOSE 22
 ENTRYPOINT ["sh", "run.sh"]
