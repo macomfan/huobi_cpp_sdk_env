@@ -38,3 +38,27 @@ docker run -it -v <Your local folder>:<Container folder> -p <Your local IP>:<Por
 ssh root@<Your local IP> -p <Port>
 ```
 Please use root as the login name and the password is "huobi" (quotation mark is not included)
+
+### Guide to build
+This is the guide to show how to build huobi cpp SDK and run a example to get candlestick data.
+
+In your docker host box
+```
+# cd ~
+# git clone --branch 1.0.5 https://github.com/HuobiRDCenter/huobi_Cpp.git huobi_cpp_1.0.5
+# docker pull macomfan/huobi_cpp_sdk_env
+# docker run -it -v ~:/root/hostbox -p 0.0.0.0:22222:22 macomfan/huobi_cpp_sdk_env
+```
+In the container box
+```
+[root@05b3854c5396 ~] cd /root/hostbox/huobi_cpp_1.0.5
+[root@05b3854c5396 ~] mkdir build && cd build
+[root@05b3854c5396 ~] cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+[root@05b3854c5396 ~] make && make install
+
+[root@05b3854c5396 ~] cd /root/hostbox/huobi_cpp_1.0.5/examples/GetCandlestickData
+[root@05b3854c5396 ~] mkdir build && cd build
+[root@05b3854c5396 ~] cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+[root@05b3854c5396 ~] make
+[root@05b3854c5396 ~] ./GetCandlestickData
+```
