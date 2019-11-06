@@ -34,8 +34,8 @@ RUN cd /usr &&\
 ENV PATH=$PATH:/bin/:/usr/bin/
 
 # Install libwebsockets v3.1
-ADD libwebsockets-3.1.0.tar.gz /root
 RUN source /opt/rh/devtoolset-3/enable && \
+    git clone --branch v3.1.0 https://github.com/warmcat/libwebsockets.git /root/libwebsockets-3.1.0 &&\
     cd /root/libwebsockets-3.1.0 && \
     mkdir build && \
     cd build && \
