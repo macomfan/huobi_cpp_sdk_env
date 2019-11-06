@@ -4,6 +4,7 @@ MAINTAINER Wenrui Ma <macomfan@163.com>
 
 # Install GCC, OpenSSL, Curl, ssh, net-tools, git
 RUN yum install -y centos-release-scl-rh centos-release-scl && \
+    yum install -y gcc gdb && \
     yum install -y devtoolset-3-gcc  devtoolset-3-gcc-c++ && \
     yum install -y openssl openssl-devel && \
     yum install -y libcurl libcurl-devel && \
