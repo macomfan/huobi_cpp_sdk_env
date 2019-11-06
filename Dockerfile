@@ -7,7 +7,7 @@ RUN yum install -y zip unzip which
 
 # Install openssl ssh
 RUN yum install -y openssl openssl-devel && \
-	  yum install -y openssh-server net-tools && \
+    yum install -y openssh-server net-tools && \
     yum clean all -y
 
 # Config ssh
@@ -53,7 +53,19 @@ RUN source /opt/rh/devtoolset-3/enable && \
     make && make install && \
     cd .. && rm -rf build
 
+# Install gtest
+RUN source /opt/rh/devtoolset-3/enable && \
+    git clone --branch release-1.8.0 https://github.com/google/googletest.git /root/googletest-1.8.0 && \
+    cd /root/googletest-1.8.0 && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && make install && \
+    cd .. && rm -rf build
+
 WORKDIR /root
 COPY run.sh /usr/local/bin/run.sh
+RUN echo "source /opt/rh/devtoolset-3/enable" >> /root/.bashrc
+
 EXPOSE 22
 ENTRYPOINT ["sh", "run.sh"]
