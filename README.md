@@ -13,6 +13,14 @@ Installed:
 * git
 * ssh
 
+### Build tool collections
+* gcc : /opt/rh/devtoolset-3/root/bin/gcc
+* g++ : /opt/rh/devtoolset-3/root/bin/g++
+* as : /usr/bin/as
+* make : /usr/bin/make
+* gdb : /usr/bin/gdb
+* cmake : /usr/bin/cmake
+
 ### Usage
 
 #### Pull form docker hub
